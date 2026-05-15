@@ -1,0 +1,80 @@
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+from sklearn.metrics import (
+    confusion_matrix,
+    classification_report,
+    roc_curve,
+    auc
+)
+
+import numpy as np
+
+
+def evaluate_model(model, X_test, y_test):
+    # Predicciones
+    y_pred = model.predict(X_test)
+    y_prob = model.predict_proba(X_test)[:, 1]
+
+    
+    # 1. MATRIZ DE CONFUSIÓN: para obtener una visión clara de los verdaderos positivos, falsos positivos, verdaderos negativos y falsos negativos.
+    
+    cm = confusion_matrix(y_test, y_pred)
+
+    plt.figure(figsize=(6, 4))
+    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues")
+    plt.title("Matriz de Confusión")
+    plt.xlabel("Predicción")
+    plt.ylabel("Real")
+    plt.show()
+
+    
+    # 2. CURVA ROC
+    
+    fpr, tpr, _ = roc_curve(y_test, y_prob)
+    roc_auc = auc(fpr, tpr)
+
+    plt.figure(figsize=(6, 4))
+    plt.plot(fpr, tpr, label=f"AUC = {roc_auc:.3f}")
+    plt.plot([0, 1], [0, 1], "k--")
+    plt.xlabel("False Positive Rate")
+    plt.ylabel("True Positive Rate")
+    plt.title("Curva ROC")
+    plt.legend()
+    plt.show()
+
+    
+    # 3. REPORTE DE CLASIFICACIÓN: el cual incluye métricas como precisión, recall, F1-score y soporte para cada clase, lo que ayuda a entender el rendimiento del modelo en cada categoría.
+    
+    print("\n=== Reporte de Clasificación ===")
+    print(classification_report(y_test, y_pred))
+
+    
+    # 4. IMPORTANCIA DE VARIABLES: funciona para el arbol de decision, random forest, gradient boosting. Permite identificar que variables tienen mayor impacto en la prediccion del modelo, lo que es crucial para la interpretabilidad y para tomar decisiones informadas sobre el negocio.
+    
+    try:
+        # Debe de extraer nombres de columnas después del preprocesamiento
+
+        ohe = model.named_steps["preprocessor"].named_transformers_["cat"].named_steps["encoder"]
+        cat_cols = model.named_steps["preprocessor"].transformers_[1][2]
+        ohe_cols = ohe.get_feature_names_out(cat_cols)
+
+        num_cols = model.named_steps["preprocessor"].transformers_[0][2]
+        all_cols = np.concatenate([num_cols, ohe_cols])
+
+        # Importancias del modelo
+        importances = model.named_steps["model"].feature_importances_
+
+        # Ordenar
+        idx = np.argsort(importances)[::-1]
+        sorted_cols = all_cols[idx]
+        sorted_imp = importances[idx]
+
+        # Plot
+        plt.figure(figsize=(10, 6))
+        sns.barplot(x=sorted_imp[:20], y=sorted_cols[:20])
+        plt.title("Top 20 variables más importantes")
+        plt.show()
+
+    except Exception:
+        print("\nEl modelo no soporta importancia de variables (por ejemplo, regresión logística o MLP).")
