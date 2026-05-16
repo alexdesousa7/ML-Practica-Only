@@ -2,6 +2,7 @@ __pycache__/
 .ipynb_checkpoints/
 .env
 
-# Ignorar todo en models excepto el modelo final
-models/*
-!models/best_model.pkl
+
+# Ignorar todos los modelos
+models/
+*.pkl

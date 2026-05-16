@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import os
 
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
@@ -14,32 +15,25 @@ import joblib
 from src.preprocessing import build_preprocessing_pipeline
 
 
-
 def train_models(df):
 
-
-    # Eliminamos columnas con leakage (información del futuro de lo contrario tendriamos acceso a la informacion del futuro y el modelo no aprenderia a generalizar.)
-    
+    #  Eliminamos columnas con leakage (información del futuro de lo contrario tendriamos acceso a la informacion del futuro y el modelo no aprenderia a generalizar.)
     leakage_cols = ["reservation_status", "reservation_status_date"]
     df = df.drop(columns=[col for col in leakage_cols if col in df.columns])
 
-    # Separar variables
-
+    # Separamos variables
     X = df.drop("is_canceled", axis=1)
     y = df["is_canceled"]
 
     # Train-test split
-
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42, stratify=y
     )
 
     # Preprocesamiento
-
     preprocessor = build_preprocessing_pipeline(X)
 
     # Modelos a entrenar: Regresión logística, Árbol de decisión, Random Forest, Gradient y Boosting, Red neuronal (MLP)
-
     models = {
         "Logistic Regression": LogisticRegression(max_iter=200),
         "Decision Tree": DecisionTreeClassifier(),
@@ -47,6 +41,11 @@ def train_models(df):
         "Gradient Boosting": GradientBoostingClassifier(),
         "Neural Network": MLPClassifier(max_iter=300)
     }
+
+    # Crear carpeta models si no existe
+    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+    models_dir = os.path.join(project_root, "models")
+    os.makedirs(models_dir, exist_ok=True)
 
     results = {}
     best_model = None
@@ -63,6 +62,12 @@ def train_models(df):
 
         # Entrenar
         clf.fit(X_train, y_train)
+
+        # Guardar modelos de forma individual
+        model_filename = name.lower().replace(" ", "_") + ".pkl"
+        model_path = os.path.join(models_dir, model_filename)
+        joblib.dump(clf, model_path)
+        print(f"Modelo guardado: {model_path}")
 
         # Predicciones
         y_pred = clf.predict(X_test)
@@ -84,13 +89,9 @@ def train_models(df):
             best_score = metrics["roc_auc"]
             best_model = clf
 
-    # Guardar mejor modelo 
-    import os
-
-    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-    model_path = os.path.join(project_root, "models", "best_model.pkl")
-
-    joblib.dump(best_model, model_path)
-
+    # Guarda el mejor modelo
+    best_model_path = os.path.join(models_dir, "best_model.pkl")
+    joblib.dump(best_model, best_model_path)
+    print(f"\nMejor modelo guardado en: {best_model_path}")
 
     return results, best_model
