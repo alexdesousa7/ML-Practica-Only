@@ -1,12 +1,15 @@
 # 🏨 Predicción de Cancelación de Reservas de Hotel
 
-`https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python`
-`https://img.shields.io/badge/Scikit--Learn-ML-F7931E?style=for-the-badge&logo=scikit-learn`
-`https://img.shields.io/badge/Pandas-Data%20Analysis-150458?style=for-the-badge&logo=pandas`
-`https://img.shields.io/badge/NumPy-Scientific%20Computing-013243?style=for-the-badge&logo=numpy`
-`https://img.shields.io/badge/Status-Completed-brightgreen?style=for-the-badge`
-`https://img.shields.io/badge/Project-ML-blue?style=for-the-badge`
-`https://img.shields.io/badge/License-MIT-lightgrey?style=for-the-badge`
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python" />
+  <img src="https://img.shields.io/badge/Scikit--Learn-ML-F7931E?style=for-the-badge&logo=scikit-learn" />
+  <img src="https://img.shields.io/badge/Pandas-Data%20Analysis-150458?style=for-the-badge&logo=pandas" />
+  <img src="https://img.shields.io/badge/NumPy-Scientific%20Computing-013243?style=for-the-badge&logo=numpy" />
+  <img src="https://img.shields.io/badge/Status-Completed-brightgreen?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Project-ML-blue?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/License-MIT-lightgrey?style=for-the-badge" />
+</p>
+
 
 Modulo 05 – Machine Learning – Ejercicio Final - Pontia Tech
 
