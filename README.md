@@ -37,6 +37,7 @@ ML Practica Only/
 ├── requirements.txt
 │
 ├── src/
+│   ├── cleanup_dataset.py      # Clase que contiene metodos reutilizables para la limpieza de los datos y creación de .csv con los datos processados.
 │   ├── config.py               # Configuración global (rutas, parámetros, constantes)
 │   ├── data_loader.py          # Carga del dataset y utilidades de lectura
 │   ├── preprocessing.py        # Pipeline de preprocesamiento
@@ -44,8 +45,10 @@ ML Practica Only/
 │   └── predictor.py            # Funciones de predicción con el modelo final
 │
 ├── data/
-│   └── raw/
-│       └── dataset_practica_final.csv
+│   ├── raw/
+│   │   └── dataset_practica_final.csv
+│   └── processed/
+│       └── processed_dataset.csv  # Este se genera al momento de correr los main.py.
 │
 ├── models/                     # Modelos entrenados (IGNORADO en GitHub)
 │   ├── logistic_regression.pkl
@@ -90,7 +93,7 @@ ML Practica Only/
 El pipeline completo se ejecuta desde `main.py` y realiza:
 
 ### **1. Carga del dataset**
-Desde `data/raw/dataset_practica_final.csv`.
+Desde `data/processed/processed_dataset.csv`.
 
 ### **2. Preprocesamiento**
 Implementado en `src/preprocessing.py`:
@@ -138,11 +141,11 @@ models/best_model.pkl
 
 | Modelo | Accuracy | Precision | Recall | F1 | ROC-AUC |
 |--------|----------|-----------|--------|-----|---------|
-| Logistic Regression | 0.8184 | 0.8110 | 0.6646 | 0.7305 | 0.8962 |
-| Decision Tree | 0.8577 | 0.8052 | 0.8122 | 0.8087 | 0.8507 |
-| Neural Network | 0.8680 | 0.8371 | 0.7992 | 0.8177 | 0.9419 |
-| Gradient Boosting | 0.8509 | 0.8510 | 0.7244 | 0.7826 | 0.9268 |
-| **Random Forest** | **0.8940** | **0.8920** | **0.8123** | **0.8503** | **0.9581** |
+| Logistic Regression | 0.8284 | 0.8149 | 0.6945 | 0.7499 | 0.9065 |
+| Decision Tree | 0.8562 | 0.8035 | 0.8097 | 0.8066 | 0.8487 |
+| Neural Network | 0.8665 | 0.8176 | 0.8234 | 0.8205 | 0.9421 |
+| Gradient Boosting | 0.8482 | 0.8320 | 0.7395 | 0.7830 | 0.9240 |
+| **Random Forest** | **0.8906** | **0.8897** | **0.8043** | **0.8448** | **0.9558** |
 
 ### ⭐ Mejor modelo: **Random Forest Classifier**  
 Guardado como:
