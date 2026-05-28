@@ -6,3 +6,5 @@ __pycache__/
 # Ignorar todos los modelos
 models/
 *.pkl
+
+data/processed/
