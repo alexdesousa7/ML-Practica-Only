@@ -28,7 +28,7 @@ Incluye:
 
 ---
 
-## 📂 Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 ML Practica Only/
@@ -73,22 +73,16 @@ ML Practica Only/
 │
 └── notebooks/                  # Notebooks organizados por fase del proyecto
     ├── exploracion/
-    │   └── eda_inicial.ipynb          # Análisis exploratorio del dataset
+    │   ├── eda_inicial.ipynb          # Análisis exploratorio del dataset
+    │   └── pruebas_modelos.ipynb      # Pruebas de modelos y tuning inicial
     │
-    ├── modelado/
-    │   └── entrenamiento.ipynb        # Pruebas de modelos y tuning inicial
-    │
-    ├── evaluacion/
-    │   └── evaluacion.ipynb           # Métricas, curvas ROC, matriz de confusión
-    │
-    └── predicion/
-        └── prediccion.ipynb           # Predicción con el modelo final
-
+    └── finales/
+        └── eda_final.ipynb           # Predicción con el modelo final
 ```
 
 ---
 
-## 🧠 Descripción del Pipeline
+## Descripción del Pipeline
 
 El pipeline completo se ejecuta desde `main.py` y realiza:
 
@@ -137,7 +131,7 @@ models/best_model.pkl
 
 ---
 
-## 📊 Resultados de los Modelos (Ejecución Final)
+## Resultados de los Modelos (Ejecución Final)
 
 | Modelo | Accuracy | Precision | Recall | F1 | ROC-AUC |
 |--------|----------|-----------|--------|-----|---------|
@@ -147,7 +141,7 @@ models/best_model.pkl
 | Gradient Boosting | 0.8482 | 0.8320 | 0.7395 | 0.7830 | 0.9240 |
 | **Random Forest** | **0.8906** | **0.8897** | **0.8043** | **0.8448** | **0.9558** |
 
-### ⭐ Mejor modelo: **Random Forest Classifier**  
+### Mejor modelo: **Random Forest Classifier**  
 Guardado como:
 
 ```
@@ -156,7 +150,7 @@ models/best_model.pkl
 
 ---
 
-## 🔍 Importancia de Variables (Random Forest)
+## Importancia de Variables (Random Forest)
 
 | Feature | Importancia |
 |--------|-------------|
@@ -169,7 +163,7 @@ models/best_model.pkl
 
 ---
 
-## ▶️ Instalación
+## Instalación
 
 ### **1. Crear entorno virtual**
 
@@ -195,7 +189,7 @@ pip install -r requirements.txt
 
 ---
 
-## ▶️ Ejecución del Pipeline Completo
+## Ejecución del Pipeline Completo
 
 Desde la raíz del proyecto:
 
@@ -216,7 +210,7 @@ Nota:
 
 ---
 
-## 🤖 Ejemplo de Predicción
+## Ejemplo de Predicción
 
 En el notebook `notebooks/prediccion/prediccion.ipynb`:
 
@@ -246,7 +240,7 @@ print("Probabilidad de cancelación:", prob)
 
 ---
 
-## 🛠️ Reproducibilidad
+## Reproducibilidad
 
 Para regenerar todos los modelos:
 
@@ -268,7 +262,7 @@ models/
 
 ---
 
-## 🏁 Conclusión
+## Conclusión
 
 Este proyecto implementa un sistema completo y modular de Machine Learning, con:
 
