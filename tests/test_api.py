@@ -58,7 +58,7 @@ WILL_NOT_CANCEL = {
   "previous_cancellations": 0,
   "previous_bookings_not_canceled": 0,
   "booking_changes": 0,
-  "deposit_type": "No Deposit",
+  "deposit_type": "No Deposit", # significativo
   "days_in_waiting_list": 0,
   "customer_type": "Transient",
   "adr": 100.0,
@@ -66,7 +66,7 @@ WILL_NOT_CANCEL = {
   "total_of_special_requests": 2,
   "lead_time": 0,
   "reserved_room_type": "A",
-  "assigned_room_type": "B",
+  "assigned_room_type": "B", # significativo
   "agent": "250",
 }
 
