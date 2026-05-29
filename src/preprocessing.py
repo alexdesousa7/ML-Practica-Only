@@ -9,6 +9,11 @@ from src.cleanup_dataset import CleanUpDataset
 import numpy as np
 
 def build_preprocessing_pipeline():
+  """
+  Esta función se encarga de hacer una limpieza y transformaciones a nuestro dataset,
+  antes de hacer el entrenamiento de los modelos.
+  """
+
   # 1. Elegir  la columna objetivo si está presente (No haremos nada particularmente con ella en esta face)
   target_col = "is_canceled"
   
@@ -38,7 +43,7 @@ def build_preprocessing_pipeline():
 
   dataset.fix_negatives(list_of_columns_that_should_have_positive_values)
 
-  ########################### Ajustes de Datos #################################
+  # ================================== Ajustes de Datos ==================================
 
   # Creemos que es mejor utilizar  variables True o False / 1 o 0. Creemos que en este caso el valor mas importante es ver si los mismatchs entre lo que se reserva y se recibe afecta o no a la cancelación.
   dataset.df["room_mismatch"] = (dataset.df["reserved_room_type"] != dataset.df["assigned_room_type"]).astype(int)
@@ -64,21 +69,21 @@ def build_preprocessing_pipeline():
 
   # Pipelines
   numeric_pipeline = Pipeline(steps=[
-      ("imputer", SimpleImputer(strategy="median")),
-      ("scaler", StandardScaler())
+    ("imputer", SimpleImputer(strategy="median")),
+    ("scaler", StandardScaler())
   ])
 
   categorical_pipeline = Pipeline(steps=[
-      ("imputer", SimpleImputer(strategy="most_frequent")),
-      ("encoder", OneHotEncoder(handle_unknown="ignore"))
+    ("imputer", SimpleImputer(strategy="most_frequent")),
+    ("encoder", OneHotEncoder(handle_unknown="ignore"))
   ])
 
   # ColumnTransformer
   preprocessor = ColumnTransformer(
-      transformers=[
-          ("num", numeric_pipeline, numeric_cols),
-          ("cat", categorical_pipeline, categorical_cols)
-      ]
+    transformers=[
+      ("num", numeric_pipeline, numeric_cols),
+      ("cat", categorical_pipeline, categorical_cols)
+    ]
   )
 
   return preprocessor

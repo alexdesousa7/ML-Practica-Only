@@ -12,6 +12,16 @@ from sklearn.pipeline import Pipeline
 import joblib
 
 def train_models(df, preprocessor):
+    """
+      De acuerdo a los requerimientos de la tarea, se entrena con los siguientes modelos:
+        - Logistic Regression
+        - Decision Tree
+        - Random Forest
+        - Gradient Boosting
+        - Neural Network
+
+      Nos quedamos con el modelo que obtiene mejores resultados.
+    """
     # Separamos variables
     X = df.drop("is_canceled", axis=1)
     y = df["is_canceled"]
