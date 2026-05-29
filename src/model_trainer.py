@@ -9,29 +9,27 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.neural_network import MLPClassifier
 from sklearn.pipeline import Pipeline
-
 import joblib
 
-from src.preprocessing import build_preprocessing_pipeline
+def train_models(df, preprocessor):
+    """
+      De acuerdo a los requerimientos de la tarea, se entrena con los siguientes modelos:
+        - Logistic Regression
+        - Decision Tree
+        - Random Forest
+        - Gradient Boosting
+        - Neural Network
 
-
-def train_models(df):
-
-    #  Eliminamos columnas con leakage (información del futuro de lo contrario tendriamos acceso a la informacion del futuro y el modelo no aprenderia a generalizar.)
-    leakage_cols = ["reservation_status", "reservation_status_date"]
-    df = df.drop(columns=[col for col in leakage_cols if col in df.columns])
-
+      Nos quedamos con el modelo que obtiene mejores resultados.
+    """
     # Separamos variables
     X = df.drop("is_canceled", axis=1)
     y = df["is_canceled"]
 
     # Train-test split
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=42, stratify=y
+      X, y, test_size=0.2, random_state=42, stratify=y
     )
-
-    # Preprocesamiento
-    preprocessor = build_preprocessing_pipeline(X)
 
     # Modelos a entrenar: Regresión logística, Árbol de decisión, Random Forest, Gradient y Boosting, Red neuronal (MLP)
     models = {
