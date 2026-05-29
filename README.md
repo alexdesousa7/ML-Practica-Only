@@ -280,3 +280,26 @@ Este proyecto implementa un sistema completo y modular de Machine Learning, con:
 - documentación clara  
 
 ---
+
+## Probar API
+
+```bash
+# 1. Activar entorno virtual
+# En Windows:
+# venv\Scripts\activate
+# En Linux/Mac:
+# source venv/bin/activate
+
+# 2. Instalar las dependencias de la API
+pip install -r requirements.txt
+
+# 3. Ejecutar el servidor
+uvicorn api:app --reload
+
+# 4. Abrir http://localhost:8000/docs en el navegador para ver Swagger UI
+
+python -m pytest tests/test_api.py -v
+```
+
+Esta prueba que con unos casos pre-determinados, el modelo predice correctamente que se cancelará o no la reserva.
+---
